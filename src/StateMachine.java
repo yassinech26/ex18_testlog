@@ -12,13 +12,15 @@ public class StateMachine {
 
     public void login() {
         if (currentState == State.LOGIN) {
-            currentState = State.BASKET;
+            currentState = State.BROWSE; // ✅ Fixed: LOGIN → BROWSE
+        } else {
+            throw new IllegalStateException("Invalid transition");
         }
     }
 
     public void toCatalog() {
         if (currentState == State.BASKET) {
-            currentState = State.BROWSE;
+            currentState = State.BROWSE; // ✅ correct
         } else {
             throw new IllegalStateException("Invalid transition");
         }
@@ -26,7 +28,7 @@ public class StateMachine {
 
     public void addItem() {
         if (currentState == State.BROWSE) {
-            currentState = State.BASKET;
+            currentState = State.BASKET; // ✅ correct
         } else {
             throw new IllegalStateException("Invalid transition");
         }
@@ -34,7 +36,7 @@ public class StateMachine {
 
     public void finalizeOrder() {
         if (currentState == State.BASKET) {
-            currentState = State.CHECKOUT;
+            currentState = State.CHECKOUT; // ✅ correct
         } else {
             throw new IllegalStateException("Invalid transition");
         }
@@ -42,7 +44,7 @@ public class StateMachine {
 
     public void goBack() {
         if (currentState == State.CHECKOUT) {
-            currentState = State.BASKET;
+            currentState = State.BASKET; // ✅ correct
         } else {
             throw new IllegalStateException("Invalid transition");
         }
@@ -50,7 +52,16 @@ public class StateMachine {
 
     public void payment() {
         if (currentState == State.CHECKOUT) {
-            currentState = State.PAY;
+            currentState = State.PAY; // ✅ correct
+        } else {
+            throw new IllegalStateException("Invalid transition");
+        }
+    }
+
+    // ✅ Fixed: new method, was completely missing
+    public void transactionConfirmed() {
+        if (currentState == State.PAY) {
+            currentState = State.LOGOUT;
         } else {
             throw new IllegalStateException("Invalid transition");
         }
