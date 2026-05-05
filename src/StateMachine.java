@@ -1,5 +1,7 @@
 public class StateMachine {
 
+
+    //The StateMachine class enforces which steps are allowed and in which order.
     enum State {
         LOGIN, BROWSE, BASKET, CHECKOUT, PAY, LOGOUT
     }
